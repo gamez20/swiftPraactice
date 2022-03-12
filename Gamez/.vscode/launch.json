@@ -1,0 +1,30 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Gamez",
+            "program": "${workspaceFolder:Gamez}/.build/debug/Gamez",
+            "args": [],
+            "cwd": "${workspaceFolder:Gamez}",
+            "preLaunchTask": "swift: Build Debug Gamez"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release Gamez",
+            "program": "${workspaceFolder:Gamez}/.build/release/Gamez",
+            "args": [],
+            "cwd": "${workspaceFolder:Gamez}",
+            "preLaunchTask": "swift: Build Release Gamez"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Test Gamez",
+            "program": "${workspaceFolder:Gamez}/.build/debug/GamezPackageTests.xctest",
+            "cwd": "${workspaceFolder:Gamez}",
+            "preLaunchTask": "swift: Build All"
+        }
+    ]
+}
