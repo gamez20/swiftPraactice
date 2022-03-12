@@ -8,7 +8,7 @@ class MyTaxiView{
     var opc=""
     func pageload(){
 
-        printData("1. Taxi \n2. Support") 
+        printData("--Welcome to TaxiApp--\n!You want To Do!!\n1. Taxi \n2. Support") 
         switch readLineData() {
 
             case "1":
@@ -25,7 +25,7 @@ class MyTaxiView{
 
 
     func loadsubmenu(){
-        
+
         printData("1. Call a taxi\n2. Back")
         switch readLineData() {
         case "1":
