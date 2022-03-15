@@ -1,24 +1,35 @@
 import Foundation
 
 class MyTaxiPresente{
+
     static let instance:MyTaxiPresente = MyTaxiPresente()
+    let dataService:MyTaxiDataService = MyTaxiDataService.instance
 
-    func homesub1(_ activeIntf:String)-> String {
-      
-        if activeIntf == "1"{
-             return "1. Call a taxi\n2. Back"
-        }
-       return "Support is not available yet\npress any key + enter to go back"
+
+    init(){
+        dataService.dataDefault()
     }
 
-    func homesub2(_ activeIntf:String)-> String {
+    func taxiDriversData() -> Array<TaxiDriver>{
+        return dataService.getTaxiDrivers()
+    }
     
-        if activeIntf == "1"{
-                return "A taxi will come to your home soon!\nApp finished."
-        }
-        return "press back"
+    func driverSearch(_ number:Int ) -> TaxiDriver{
+
+        return dataService.getTaxiDriver(number)
+
     }
 
+    func randomNumber() -> Int {
+        return Int.random(in:1...15)
+    }
 
-    
+    func calculateAverageTaxiDriver(_ sumQualifier:Int ,_ qualifyTaxiDriver:Int) -> Int {
+
+        return  sumQualifier / qualifyTaxiDriver
+    }
+
+    func numberOfTaxiDrivers() -> Int{
+        return (dataService.getnumberTaxiDrivers() - 1)
+    }
 }
