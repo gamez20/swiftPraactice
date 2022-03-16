@@ -86,18 +86,17 @@ class MyTaxiView{
     func scoreTaxiDriver(_ taxiDriverSelected:TaxiDriver) {
 
         printData("Qualify Taxi Driver From 0 to 5")  
-        let qualifyTaxiDriver = Int(requestOption())
-        let minRantingNumber=0
-        let maxRantingNumber=5
-        
-        if qualifyTaxiDriver! <= maxRantingNumber && qualifyTaxiDriver! >= minRantingNumber{
+        let qualifyTaxiDriver = Int(readLine()!)!
+        let minRantingNumber = 0
+        let maxRantingNumber = 5
+        let isQualifyValidate = qualifyTaxiDriver <= maxRantingNumber && qualifyTaxiDriver >= minRantingNumber
+
+        if isQualifyValidate {
             
             taxiDriverSelected.numberTrips += 1 
-            taxiDriverSelected.sumQualifier += qualifyTaxiDriver ?? 0
-            taxiDriverSelected.score = myTaxiPresenter.calculateAverageTaxiDriver(
-                                                                                    taxiDriverSelected.sumQualifier,
-                                                                                    taxiDriverSelected.numberTrips
-                                                                                )
+            taxiDriverSelected.sumQualifier += qualifyTaxiDriver
+            taxiDriverSelected.score = myTaxiPresenter.calculateAverageTaxiDriver(taxiDriverSelected.sumQualifier,taxiDriverSelected.numberTrips)
+
         }else{
             print("enter a grade from 0 to 5")
             scoreTaxiDriver(taxiDriverSelected)
@@ -129,10 +128,10 @@ class MyTaxiView{
     func taxiDriverShow(){
 
         let taxiDrivers = myTaxiPresenter.taxiDriversData()
-        var count = 1
+        var taxiDriverNumber = 1
         for taxiDriver in taxiDrivers{
-            printData("\(count) - \(taxiDriver.name) -> Score: \(taxiDriver.score) -> Travels \(taxiDriver.numberTrips) ")
-            count+=1
+            printData("\(taxiDriverNumber) - \(taxiDriver.name) -> Score: \(taxiDriver.score) -> Travels \(taxiDriver.numberTrips) ")
+            taxiDriverNumber+=1
         }  
 
     }
