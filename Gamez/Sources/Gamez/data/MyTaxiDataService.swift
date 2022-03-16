@@ -4,7 +4,7 @@ class MyTaxiDataService{
     static let instance:MyTaxiDataService = MyTaxiDataService()
     var taxiDrivers = [TaxiDriver]()
 
-    func dataDefault(){
+    init(){
                      
         taxiDrivers =
                     [

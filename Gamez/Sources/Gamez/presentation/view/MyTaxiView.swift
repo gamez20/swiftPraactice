@@ -4,11 +4,12 @@ class MyTaxiView{
     // static let instance:Mytaxicontroller = Mytaxicontroller()
     // constructor
  
-    // let myTaxiPresenter = MyTaxiPresente()
+    // let dataService = MyTaxiPresente()
     
 
     static let instance:MyTaxiView = MyTaxiView()
-    let myTaxiPresenter:MyTaxiPresenter = MyTaxiPresenter.instance
+    // let dataService:dataService = dataService.instance
+    let dataService:MyTaxiDataService = MyTaxiDataService.instance
 
     func pageload(){
          var opcionExit:String
@@ -57,9 +58,9 @@ class MyTaxiView{
                    printData("Select driver")
                    numberTaxiDriver = Int(requestOption())
             
-                    if (numberTaxiDriver! - 1) <= myTaxiPresenter.numberOfTaxiDrivers(){
+                    if (numberTaxiDriver! - 1) <= dataService.getnumberTaxiDrivers(){
 
-                        taxiDriverSelected = myTaxiPresenter.driverSearch(numberTaxiDriver ?? 0)
+                        taxiDriverSelected = dataService.getTaxiDriver(numberTaxiDriver ?? 0)
                         print("taxi driver \(taxiDriverSelected.name) selected")
                         timeTravel()
                         scoreTaxiDriver(taxiDriverSelected)
@@ -95,7 +96,7 @@ class MyTaxiView{
             
             taxiDriverSelected.numberTrips += 1 
             taxiDriverSelected.sumQualifier += qualifyTaxiDriver
-            taxiDriverSelected.score = myTaxiPresenter.calculateAverageTaxiDriver(taxiDriverSelected.sumQualifier,taxiDriverSelected.numberTrips)
+            taxiDriverSelected.score = calculateAverageTaxiDriver(taxiDriverSelected.sumQualifier,taxiDriverSelected.numberTrips)
 
         }else{
             print("enter a grade from 0 to 5")
@@ -107,7 +108,7 @@ class MyTaxiView{
 
 
     func timeTravel(){
-        let time:Int = myTaxiPresenter.randomNumber()
+        let time:Int = randomNumber()
         // var timer=Timer()
         print("\(time) Minutes")
         print("time in process .....................")
@@ -127,7 +128,7 @@ class MyTaxiView{
     */
     func taxiDriverShow(){
 
-        let taxiDrivers = myTaxiPresenter.taxiDriversData()
+        let taxiDrivers = dataService.getTaxiDrivers()
         var taxiDriverNumber = 1
         for taxiDriver in taxiDrivers{
             printData("\(taxiDriverNumber) - \(taxiDriver.name) -> Score: \(taxiDriver.score) -> Travels \(taxiDriver.numberTrips) ")
@@ -136,8 +137,14 @@ class MyTaxiView{
 
     }
 
+    func randomNumber() -> Int {
+        return Int.random(in:1...15)
+    }
 
+    func calculateAverageTaxiDriver(_ sumQualifier:Int ,_ qualifyTaxiDriver:Int) -> Int {
 
+        return  sumQualifier / qualifyTaxiDriver
+    }
 
     func requestOption()->String{
         return readLine()!
