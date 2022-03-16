@@ -11,7 +11,7 @@ class MyTaxiView{
     // let dataService:dataService = dataService.instance
     let dataService:MyTaxiDataService = MyTaxiDataService.instance
 
-    func pageload(){
+    func start(){
          var opcionExit:String
          var optionSelected:String
         repeat{
@@ -21,7 +21,7 @@ class MyTaxiView{
             switch optionSelected {
 
                 case "1":
-                    loadsubmenu()
+                    loadSubmenu()
                 case "2":
                         printData("Support is not available yet\npress any key + enter to go back")
                 default:
@@ -34,7 +34,7 @@ class MyTaxiView{
     }
 
 
-    func loadsubmenu(){
+    func loadSubmenu(){
 
         let pickupPoint:String
         let detinyPoint:String
@@ -67,18 +67,18 @@ class MyTaxiView{
                     }
                     else{
                         print("taxi driver with the number \(numberTaxiDriver!) does not exist")
-                        loadsubmenu()
+                        loadSubmenu()
                     }
                     
 
                 }else {
                     print("Empty Fields")
-                    loadsubmenu()
+                    loadSubmenu()
                 }
 
 
             default:
-                pageload()
+                start()
 
         }
 

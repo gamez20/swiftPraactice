@@ -33,7 +33,7 @@ e
 class Main {
     let start = MyTaxiView()
     init() {
-        start.pageload()
+        start.start()
     }
     
 }
