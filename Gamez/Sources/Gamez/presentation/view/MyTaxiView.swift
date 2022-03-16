@@ -10,21 +10,26 @@ class MyTaxiView{
     static let instance:MyTaxiView = MyTaxiView()
     let myTaxiPresenter:MyTaxiPresente = MyTaxiPresente.instance
 
-
-    var opc=""
     func pageload(){
+         var opcionExit:String
+         var optionSelected:String
+        repeat{
+            printData("--Welcome to TaxiApp--\n!You want To Do!!\n1. Taxi \n2. Support") 
+            optionSelected = requestOption()
 
-        printData("--Welcome to TaxiApp--\n!You want To Do!!\n1. Taxi \n2. Support") 
-        switch requestOption() {
+            switch optionSelected {
 
-            case "1":
-                   loadsubmenu()
-            case "2":
-                    printData("Support is not available yet\npress any key + enter to go back")
-            default:
-                printData("bye !")
-        }
-        
+                case "1":
+                    loadsubmenu()
+                case "2":
+                        printData("Support is not available yet\npress any key + enter to go back")
+                default:
+                    printData("bye !")
+            }
+
+            printData("Do you want to register another taxi? yes or not")
+            opcionExit = requestOption()
+        }while(opcionExit != "not")
     }
 
 

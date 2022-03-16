@@ -27,8 +27,8 @@ e
 */
 // print(String(randomNumber()))
 
-
-let load = Main()
+ let load = Main()
+    
 
 class Main {
     let start = MyTaxiView()
