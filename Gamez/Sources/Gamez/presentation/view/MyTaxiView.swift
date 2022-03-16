@@ -8,7 +8,7 @@ class MyTaxiView{
     
 
     static let instance:MyTaxiView = MyTaxiView()
-    let myTaxiPresenter:MyTaxiPresente = MyTaxiPresente.instance
+    let myTaxiPresenter:MyTaxiPresenter = MyTaxiPresenter.instance
 
     func pageload(){
          var opcionExit:String

@@ -1,8 +1,8 @@
 import Foundation
 
-class MyTaxiPresente{
+class MyTaxiPresenter{
 
-    static let instance:MyTaxiPresente = MyTaxiPresente()
+    static let instance:MyTaxiPresenter = MyTaxiPresenter()
     let dataService:MyTaxiDataService = MyTaxiDataService.instance
 
 
