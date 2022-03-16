@@ -87,8 +87,10 @@ class MyTaxiView{
 
         printData("Qualify Taxi Driver From 0 to 5")  
         let qualifyTaxiDriver = Int(requestOption())
-
-        if qualifyTaxiDriver! <= 5 && qualifyTaxiDriver! >= 0{
+        let minRantingNumber=0
+        let maxRantingNumber=5
+        
+        if qualifyTaxiDriver! <= maxRantingNumber && qualifyTaxiDriver! >= minRantingNumber{
             
             taxiDriverSelected.numberTrips += 1 
             taxiDriverSelected.sumQualifier += qualifyTaxiDriver ?? 0
