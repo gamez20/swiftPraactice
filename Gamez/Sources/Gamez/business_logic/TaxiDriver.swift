@@ -1,13 +1,6 @@
 import Foundation
 
-protocol Persona {
-     var identification: Int {get set}
-     var name: String        {get set}
-     var lastName: String    {get set}
-     var telephone: Int      {get set}
- }
-
-class TaxiDriver: Persona{
+class TaxiDriver {
     var identification: Int
     var name: String
     var lastName: String
