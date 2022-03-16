@@ -35,20 +35,20 @@ class MyTaxiView{
 
     func loadsubmenu(){
 
-        let addressA:String
-        let addressB:String
+        let pickupPoint:String
+        let detinyPoint:String
         // var taxiDriverSelected:TaxiDriver
 
         printData("1. Call a taxi\n2. Back")
         switch requestOption() {
             case "1":
                 printData("Address A")
-                addressA = requestOption()
+                pickupPoint = requestOption()
 
                 printData("Address B")
-                addressB = requestOption()
+                detinyPoint = requestOption()
 
-                if !(addressA.isEmpty && addressB.isEmpty) {
+                if !(pickupPoint.isEmpty && detinyPoint.isEmpty) {
 
                    let taxiDriverSelected : TaxiDriver
                    let numberTaxiDriver:Int?
