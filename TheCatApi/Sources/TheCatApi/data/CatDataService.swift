@@ -5,10 +5,10 @@ import FoundationNetworking
 class CatDataService{
     
     static let instance:CatDataService = CatDataService()
-
-    func getBreeds(onCompletion:@escaping CallbackBlock<Cat> /*,onError:ErrorBlock? */){
+    var catsData = [Cat]()
+    func getBreeds(onCompletion:@escaping CallbackBlock<Cat> ,onError:ErrorBlock? ){
         
-        let url = URL(string: "https://api.thecatapi.com/v1/breeds")!
+        let url = URL(string: "https://api.thecatapi.com/v1/breedsd")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -18,19 +18,25 @@ class CatDataService{
                     let decodeData : [Cat] = try JSONDecoder().decode([Cat].self, from: data)
 
                     // DispatchQueue.main.async {
+                       
                         onCompletion(decodeData)
+                        // self.catsData=decodeData
                     // }
 
                 } catch {
-                    /*
-                    print("Faild \(error)")
+                    
+                    print("Faild")
                     onError?(error)
-                    */
-                    print("fail")
+
                 }
         }
         task.resume()
   
     }
+
+    func getCats()-> Array<Cat>{
+        return self.catsData
+    }
+    
 }
 
