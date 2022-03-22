@@ -15,7 +15,7 @@ class CatView{
     let catPresenter:CatPresenter = CatPresenter.instance
 
     func start(){
-        catPresenter.getAllBreeds()
+        catPresenter.loadBreeds()
         menu()
     }
 
@@ -62,9 +62,15 @@ class CatView{
 
         let breedsByInitialSelected = catPresenter.getBreedsByInitialSelected(letterSelected:letterSelected)
 
-        for breeds in breedsByInitialSelected {
-            print(breeds.name)
+        if !(breedsByInitialSelected.isEmpty == false) {
+            print("There are no breeds with this initial")
+        }else{
+            for breeds in breedsByInitialSelected {
+                print(breeds.name)
+            }
         }
+
+ 
     }
 
 }

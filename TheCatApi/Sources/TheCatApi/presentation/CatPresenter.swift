@@ -10,7 +10,7 @@ class CatPresenter{
     var breedsLibrary = [Cat]()
     var initialLetterBreeds = [Character]()
 
-    func getAllBreeds(){
+    func loadBreeds(){
         dataService.getBreeds(onCompletion:{
                 cats in self.addBreedLibrary(cats)
         })
