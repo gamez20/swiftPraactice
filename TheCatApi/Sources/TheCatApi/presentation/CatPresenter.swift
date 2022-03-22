@@ -1,37 +1,73 @@
 import Foundation
 
 typealias CallbackBlock <T:Any> = (_ value:[T])->Void
-typealias ErrorBlock = (_ error:Error)->Void
+
 
 class CatPresenter{
    
     static let instance:CatPresenter = CatPresenter()
     let dataService:CatDataService = CatDataService.instance
-    var lista = [Cat]()
-    func getAllBreeds(onCompletion:@escaping CallbackBlock<Cat>, onError:ErrorBlock?){
-        
-        dataService.getBreeds(onCompletion:{
-                cats in onCompletion(cats)
-        },onError:onError)
-        
+    var breedsLibrary = [Cat]()
+    var initialLetterBreeds = [Character]()
 
+    func getAllBreeds(){
+        dataService.getBreeds(onCompletion:{
+                cats in self.addBreedLibrary(cats)
+        })
     }
 
     func getCats()-> Array<Cat>{
         // return dataService.getCats()
-        return self.lista
+        return self.breedsLibrary
     }
-/*
-    func addcat(_ cats:[Cat]) -> [Cat]{
 
-        for cat in cats{
-            self.lista.append(cat)
+    func addBreedLibrary(_ cats:[Cat]){
+        self.breedsLibrary = cats
+        addInitialLetterBreeds(breedsLibrary)
+    }
+
+    func numberBreedsInLibrary() -> Int{
+        return breedsLibrary.count
+    }
+
+    func addInitialLetterBreeds(_ breedsLibrary:[Cat]){
+        let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        var initialLetterBreed:Character
+
+        for letter in alphabet {
+            for breed in self.breedsLibrary{  
+                let nameBreed = breed.name  
+                initialLetterBreed = letterInitial(sentence:nameBreed)
+                if letter == initialLetterBreed{
+                   self.initialLetterBreeds.append(letter)
+                   break     
+                }
+            }
         }
-        return self.lista
     }
-*/
 
+    func getinitialLetterBreeds() -> Array<Character>{
+        return self.initialLetterBreeds
+    }
 
+    func letterInitial(sentence:String)->Character{
+        return Character(String(sentence[sentence.startIndex]))
+    }
+
+    func getBreedsByInitialSelected(letterSelected:Character) -> Array<Cat>{
+
+        var breedsFilter = [Cat]()
+        var initialLetterBreed:Character
+
+        for breed in self.breedsLibrary {
+            initialLetterBreed = letterInitial(sentence:breed.name)
+            if initialLetterBreed == letterSelected {
+                breedsFilter.append(breed)
+            }
+        }
+
+        return breedsFilter
+    }
 
 
 }
