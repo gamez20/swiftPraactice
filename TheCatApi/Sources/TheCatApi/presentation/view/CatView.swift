@@ -57,8 +57,8 @@ class CatView{
 
     func searchBreedInitialLetter(){
         print("Select a letter")
-
-        let letterSelected = Character(readLine()!)
+        
+        let letterSelected = Character(readLine()!.uppercased())
 
         let breedsByInitialSelected = catPresenter.getBreedsByInitialSelected(letterSelected:letterSelected)
 
