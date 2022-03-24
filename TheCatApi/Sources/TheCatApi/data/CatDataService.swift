@@ -50,7 +50,7 @@ class CatDataService{
                 semaphore.signal()
                 return
             }
-            print(String(data: data, encoding: .utf8)!)
+            // print(String(data: data, encoding: .utf8)!)
             semaphore.signal()
         }
         task.resume()

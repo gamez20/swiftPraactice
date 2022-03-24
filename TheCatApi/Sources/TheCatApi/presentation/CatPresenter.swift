@@ -82,13 +82,13 @@ class CatPresenter{
         return breedsFilter
     }
 
-    ////
+
     func ramdonNumber()-> Int{
         let numberMax: Int  = self.breedsLibrary.count
-        return Int.random(in: 1...numberMax)
+        return Int.random(in: 1..<numberMax)
     }
 
-    func voteCat() -> Cat {
+    func ramdomBreed() -> Cat {
         return self.breedsLibrary[ramdonNumber()]
     } 
 
