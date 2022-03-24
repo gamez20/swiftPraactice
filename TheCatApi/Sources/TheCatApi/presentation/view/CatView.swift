@@ -16,58 +16,55 @@ class CatView{
 
     func start(){
         catPresenter.loadBreeds()
-        menu()
+        viewMainMenu()
     }
 
 
-    func menu(){
-    
-        // let result = tipoDispositivo(width: 12, height: 12)
-        // print(result.0)
-        
+    func viewMainMenu(){
+        print("Welcome to TheApiCat\n1.Initial letters of Breeds\n2.Breeds Library\n3.The Cat Breed Battle\n4.Exit")
 
-        print("Welcome to TheApiCat\n1.Initial letters of Breeds\n2.Breeds Library\n3.The Cat Breed Battle")
         switch readLine()! {
         case "1":
-                InitialLettersOfTheBreeds()
-                searchBreedInitialLetter()
+                showInitialLettersOfTheBreeds()
         case "2":
-                breedsLibrary()
-        
+                showBreedsLibrary()
         case "3":
-                voteView()
+                votesView()
         default:
-            menu()
+           print("bye..bye =D")
         }
-   
     }
 
     func cleanConsole(){
         print("\u{1B}[1;1H", "\u{1B}[2J")
     }
 
-    func breedsLibrary(){
-        let listCats = catPresenter.getCats()
+    func showBreedsLibrary(){
+        let listCats = catPresenter.getbreeds()
         for cat  in listCats {
             print("\(cat.name) -> origin: \(cat.origin)" )  
         }
     }
 
-    func InitialLettersOfTheBreeds(){
+    func showInitialLettersOfTheBreeds(){
         
         let letters = catPresenter.getinitialLetterBreeds()
         for letter  in letters {
             print(letter)
         }
+
+        searchBreedInitialLetter()
     }
 
     func searchBreedInitialLetter(){
+
         print("Select a letter")
         let letterSelected = Character(readLine()!.uppercased())
         let breedsByInitialSelected = catPresenter.getBreedsByInitialSelected(letterSelected:letterSelected)
 
         if !(breedsByInitialSelected.isEmpty == false) {
             print("There are no breeds with this initial")
+
         }else{
 
             for breeds in breedsByInitialSelected {
@@ -78,105 +75,85 @@ class CatView{
  
     }
     //
-    func voteView(){
-        cleanConsole()
+    func votesView(){
        repeat{ 
-            
+
             print("The Cat Breed Battle\n1.Vote\n2.Voted List\n3.Breeds")
             switch readLine()! {
                 case "1":
-                    var exit:Bool = true
-                    while exit {
-                        let breedCat = catPresenter.voteCat()
-                        cleanConsole()
-                        print("******************** The Cat Breed Battle *******************")
-                        print("\(breedCat.name)")
-                        print("Selected Option\n0.Dislike 1.Like 2.Leave")
-
-                        switch Int(readLine()!) {
-                            case 0:
-                                // let AdditionDislike += + 
-                                catPresenter.addVotes(idImage:breedCat.reference_image_id ?? "" , vote: 0)
-
-                            case 1:
-                                catPresenter.addVotes(idImage:breedCat.reference_image_id ?? "" , vote: 1)
-
-                            default:
-                                exit = false
-                        } 
-
-        
-                    }
-        
+                    votesBreeds()
                 case "2":
-                    print("VotedList")
-                    let breeds = catPresenter.getCats()
-                    var countVotes = 0
-                    var votesLike=0 , votesDislike = 0
-                    catPresenter.getVotes(onCompletion:{ votes in 
-                        print(votes[19])
-
-                       for breed in breeds {
-
-                           for vote in votes {
-                               if(breed.reference_image_id == vote.image_id){
-                                   if(vote.value == 0){
-                                       votesDislike += 1
-                                   }else if vote.value == 1{
-                                       votesLike += 1
-                                   }
-                               }
-                           }
-
-                            print("Breed: \(breed.name)\nLike: \(votesLike) Dislike:\(votesDislike)")
-
-                       }
-
-
-
-
-                        // for res in rs {
-                        //     print(res.image_id)
-                            
-                        // }
-                        // print(rs.count)
-                        
-                    })
-   
-                    
-                    
-                    readLine()
+                    breedsVotingResult()
                 case "3":
-                    let breedsAnDescriptions = catPresenter.getCats()
-
-                    for breedAnDescription in breedsAnDescriptions {
-                        print("name :\(breedAnDescription.name)\ndescription:\(breedAnDescription.description) ")
-                        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-                    }
-                    
-
+                    descriptionOfBreeds()
                 default:
-                    voteView()
+                    votesView()
             }
-        print("Back menu The battle")
+
+        print("Back menu The battle Y:yes N:not")
        }while valuOpcion(opcion: readLine()!)
-           
-       
+    }
 
+    func votesBreeds(){
 
+        let breedCat = catPresenter.voteCat()
+        cleanConsole()
+        print("******************** The Cat Breed Battle *******************")
+        print("Breed Name: \(breedCat.name)")
+        print("Selected Option\n0.Dislike 1.Like 2.Leave")
+
+        switch Int(readLine()!) {
+            case 0:
+                // let AdditionDislike += + 
+                catPresenter.addVotes(idImage:breedCat.reference_image_id ?? "" , vote: 0)
+
+            case 1:
+                catPresenter.addVotes(idImage:breedCat.reference_image_id ?? "" , vote: 1)
+
+            default:
+                viewMainMenu()
+        } 
+    }
+
+    func breedsVotingResult(){
+        let breeds = catPresenter.getbreeds()
+        var votesLike = 0 , votesDislike = 0
+        catPresenter.getVotes(onCompletion:{ votes in 
+            for breed in breeds {
+                for vote in votes {
+                    if(vote.image_id == breed.reference_image_id ?? "" ){
+                        if(vote.value == 0){
+                            votesDislike = votesDislike + 1
+                        }else if vote.value == 1{
+                            votesLike = votesLike + 1
+                        }
+                    }  
+                }
+                print("Breed: \(breed.name)\nLike: \(votesLike) Dislike:\(votesDislike)")
+                votesLike = 0 
+                votesDislike = 0
+                print("***********************************")
+            }
+            
+        })
+        
+        readLine()
+    }
+
+    func descriptionOfBreeds(){
+        let breedsAnDescriptions = catPresenter.getbreeds()
+        for breedAnDescription in breedsAnDescriptions {
+            print("name :\(breedAnDescription.name)\ndescription:\(breedAnDescription.description) ")
+            print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        }
     }
 
     func valuOpcion(opcion:String)-> Bool{
 
-        if(opcion == "yes"){
+        if(opcion.uppercased() == "Y"){
             return true
         }
         return false
     }
-
-    func tipoDispositivo(width:Float, height:Float) -> (Int, String) {
-        return (3, "i")
-    }
-
 
 }

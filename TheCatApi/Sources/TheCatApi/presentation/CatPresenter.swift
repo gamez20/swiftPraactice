@@ -29,7 +29,7 @@ class CatPresenter{
     
     }
 
-    func getCats()-> Array<Cat>{
+    func getbreeds()-> Array<Cat>{
         // return dataService.getCats()
         return self.breedsLibrary
     }
