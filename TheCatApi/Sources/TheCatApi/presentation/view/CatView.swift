@@ -87,7 +87,7 @@ class CatView{
                 case "1":
                     var exit:Bool = true
                     while exit {
-                        let breedCat = catPresenter.votarCat()
+                        let breedCat = catPresenter.voteCat()
                         cleanConsole()
                         print("******************** The Cat Breed Battle *******************")
                         print("\(breedCat.name)")
@@ -147,7 +147,13 @@ class CatView{
                     
                     readLine()
                 case "3":
-                    print("Breeds")
+                    let breedsAnDescriptions = catPresenter.getCats()
+
+                    for breedAnDescription in breedsAnDescriptions {
+                        print("name :\(breedAnDescription.name)\ndescription:\(breedAnDescription.description) ")
+                        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                    }
+                    
 
                 default:
                     voteView()
