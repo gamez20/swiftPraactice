@@ -69,10 +69,15 @@ class CatView{
             print("There are no breeds with this initial")
             goBackSystemMainMenuView()
         }else{
-
+            var numberBreeds = 1
+            print("selected opcion")
             for breeds in breedsByInitialSelected {
-                print(breeds.name)
+                print("\(numberBreeds). \(breeds.name)")
+                numberBreeds += 1
             }
+            print("Number")
+            descriptionOfBreeds(breedsByInitialSelected)
+            
         }
         goBackSystemMainMenuView()
  
@@ -88,7 +93,8 @@ class CatView{
                 case "2":
                     breedsVotingResult()
                 case "3":
-                    descriptionOfBreeds()
+                    showInitialLettersOfTheBreeds()
+                    
                 default:
                     goBackSystemMainMenuView()
             }
@@ -143,14 +149,16 @@ class CatView{
        
     }
 
-    func descriptionOfBreeds(){
-        let breedsAnDescriptions = catPresenter.getbreeds()
-        for breedAnDescription in breedsAnDescriptions {
-            print("name :\(breedAnDescription.name)\ndescription:\(breedAnDescription.description) ")
-            print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    func descriptionOfBreeds(_ breeds:[Cat]){
+        let numberBreed = Int(readLine()!)!
+        let breed = breeds[numberBreed-1]
+        let totalBreedsFound = breeds.count
+        if numberBreed >= 1 && numberBreed < totalBreedsFound{
+              print("Breeds Name: \(breed.name) Description: \(breed.description)")
+        }else{
+            print("does not exist")
         }
-        readLine()
-        goBackSystemVotesView()
+        goBackSystemMainMenuView()
     }
 
     func valuOpcion(opcion:String)-> Bool{
