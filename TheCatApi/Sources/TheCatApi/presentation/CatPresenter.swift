@@ -16,6 +16,19 @@ class CatPresenter{
         })
     }
 
+    func addVotes(idImage: String,vote: Int){
+        let data:String = "{\n  \"image_id\": \"\(idImage)\",\n  \"value\": \(vote)\n}"
+        dataService.addVotes(data:data)
+    }
+
+    func getVotes(onCompletion:@escaping CallbackBlock<Vote>){
+
+        dataService.getVotes(onCompletion: { rs in
+            onCompletion(rs)
+        })
+    
+    }
+
     func getCats()-> Array<Cat>{
         // return dataService.getCats()
         return self.breedsLibrary
@@ -69,5 +82,14 @@ class CatPresenter{
         return breedsFilter
     }
 
+    ////
+    func ramdonNumber()-> Int{
+        let numberMax: Int  = self.breedsLibrary.count
+        return Int.random(in: 1...numberMax)
+    }
+
+    func voteCat() -> Cat {
+        return self.breedsLibrary[ramdonNumber()]
+    } 
 
 }
