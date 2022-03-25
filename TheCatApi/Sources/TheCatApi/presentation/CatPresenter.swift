@@ -1,56 +1,53 @@
 import Foundation
 
 typealias CallbackBlock <T:Any> = (_ value:[T])->Void
-
-
+let converterUICat:CatUIConverter = CatUIConverter()
+let converterUIVote:VoteUIConverter = VoteUIConverter()
 class CatPresenter{
    
     static let instance:CatPresenter = CatPresenter()
     let dataService:CatDataService = CatDataService.instance
-    var breedsLibrary = [Cat]()
+    var cats = [UICat]()
     var initialLetterBreeds = [Character]()
 
     func loadBreeds(){
         dataService.getBreeds(onCompletion:{
-                cats in self.addBreedLibrary(cats)
+                cats in self.addBreedLibrary(converterUICat.convert(cats))
         })
     }
 
-    func addVotes(idImage: String,vote: Int){
+    func setVotes(idImage: String,vote: Int){
         let data:String = "{\n  \"image_id\": \"\(idImage)\",\n  \"value\": \(vote)\n}"
         dataService.addVotes(data:data)
     }
 
-    func getVotes(onCompletion:@escaping CallbackBlock<Vote>){
-
+    func getVotes(onCompletion:@escaping CallbackBlock<UIVote>){
         dataService.getVotes(onCompletion: { rs in
-            onCompletion(rs)
+            onCompletion(converterUIVote.convert(rs))
         })
-    
     }
 
-    func getbreeds()-> Array<Cat>{
+    func getCats()-> Array<UICat>{
         // return dataService.getCats()
-        return self.breedsLibrary
+        return self.cats
     }
 
-    func addBreedLibrary(_ cats:[Cat]){
-        self.breedsLibrary = cats
-        addInitialLetterBreeds(breedsLibrary)
+    func addBreedLibrary(_ cats:[UICat]){
+        self.cats = cats
+        addInitialLetterBreeds(cats)
     }
 
     func numberBreedsInLibrary() -> Int{
-        return breedsLibrary.count
+        return cats.count
     }
 
-    func addInitialLetterBreeds(_ breedsLibrary:[Cat]){
+    func addInitialLetterBreeds(_ cats:[UICat]){
         let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         var initialLetterBreed:Character
 
         for letter in alphabet {
-            for breed in self.breedsLibrary{  
-                let nameBreed = breed.name  
-                initialLetterBreed = letterInitial(sentence:nameBreed)
+            for cat in self.cats{  
+                initialLetterBreed = letterInitial(sentence:cat.nameBreed  )
                 if letter == initialLetterBreed{
                    self.initialLetterBreeds.append(letter)
                    break     
@@ -67,15 +64,15 @@ class CatPresenter{
         return Character(String(sentence[sentence.startIndex]))
     }
 
-    func getBreedsByInitialSelected(letterSelected:Character) -> Array<Cat>{
+    func getCatInitialsLetter(letterSelected:Character) -> Array<UICat>{
 
-        var breedsFilter = [Cat]()
+        var breedsFilter = [UICat]()
         var initialLetterBreed:Character
 
-        for breed in self.breedsLibrary {
-            initialLetterBreed = letterInitial(sentence:breed.name)
+        for cat in self.cats {
+            initialLetterBreed = letterInitial(sentence:cat.nameBreed)
             if initialLetterBreed == letterSelected {
-                breedsFilter.append(breed)
+                breedsFilter.append(cat)
             }
         }
 
@@ -84,12 +81,12 @@ class CatPresenter{
 
 
     func ramdonNumber()-> Int{
-        let numberMax: Int  = self.breedsLibrary.count
+        let numberMax: Int  = self.cats.count
         return Int.random(in: 1..<numberMax)
     }
 
-    func ramdomBreed() -> Cat {
-        return self.breedsLibrary[ramdonNumber()]
+    func ramdomBreed() -> UICat {
+        return self.cats[ramdonNumber()]
     } 
 
 }
