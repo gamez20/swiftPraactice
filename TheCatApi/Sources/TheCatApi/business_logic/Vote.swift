@@ -1,7 +1,15 @@
 import Foundation
 
+struct Vote{
+    var nameBreed: String
+    var like: String
+    var disLike: String
 
-struct Vote: Decodable{
-    var image_id: String
-    var value: Int
+    
+    init(nameBreed:String, like:String , disLike:String) {
+        self.nameBreed = nameBreed
+        self.like = like
+        self.disLike = disLike
+    }
+    
 }

@@ -108,9 +108,9 @@ class CatView{
             print("Selected Option\n1.Like\n2.Dislike\n3.Leave")
             switch Int(readLine()!) {
                 case 1:
-                    catPresenter.setVotes(idImage:cat.imageId , vote: 1)
+                    catPresenter.setVotes(cat:cat, vote:1)
                 case 2:
-                    catPresenter.setVotes(idImage:cat.imageId , vote: 0)
+                    catPresenter.setVotes(cat:cat , vote: 0)
                 default:
                     exit = false   
             }
@@ -119,25 +119,30 @@ class CatView{
     }
 
     func votesRecord (){
+        
         let cats = catPresenter.getCats()
+        var votes = catPresenter.getVotes()
         var votesLike = 0 , votesDislike = 0
-        catPresenter.getVotes(onCompletion:{ votes in 
-            for cat in cats {
-                for vote in votes {
-                    if(vote.imageId == cat.imageId ){
-                        if(vote.voteRating == 0){
-                            votesDislike = votesDislike + 1
-                        }else if vote.voteRating == 1{
-                            votesLike = votesLike + 1
-                        }
-                    }  
-                }
-                print("Breed: \(cat.nameBreed)\nLike: \(votesLike)\nDislike:\(votesDislike)")
-                votesLike = 0 
-                votesDislike = 0
-                print("***********************************")
-            }     
-        })
+        for cat in cats {
+            for vote in votes {
+                if(vote.nameBreed == cat.nameBreed ){
+                    if vote.like == "1" {
+                        votesLike += 1
+                    }
+                    else if vote.disLike == "0" {
+                        votesDislike += 1
+                    }
+                }  
+            }
+           if(votesDislike != 0 || votesLike != 0){
+            print("Breed: \(cat.nameBreed)\nLike: \(votesLike)\nDislike:\(votesDislike)")
+            votesLike = 0 
+            votesDislike = 0
+            print("***********************************")
+            }
+        }     
+      
+        
         goBackSystemVotesView()
     }
 

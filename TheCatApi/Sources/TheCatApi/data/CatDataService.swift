@@ -32,9 +32,8 @@ class CatDataService{
         }
         task.resume()
     }
-
+/*
     func addVotes(data:String) {
-
         let semaphore = DispatchSemaphore (value: 0)
         let postData = data.data(using: .utf8)
         let url = URL(string: "https://api.thecatapi.com/v1/votes")!
@@ -86,7 +85,7 @@ class CatDataService{
         task.resume()
 
     }
-
+*/
     
 }
 

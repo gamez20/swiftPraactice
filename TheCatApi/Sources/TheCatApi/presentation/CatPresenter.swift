@@ -9,6 +9,8 @@ class CatPresenter{
     static let instance:CatPresenter = CatPresenter()
     let dataService:CatDataService = CatDataService.instance
     var cats:[UICat] = []
+    var votes:[Vote] = []
+
     var initialLetterBreeds = [Character]()
 
     func loadBreeds(){
@@ -17,16 +19,22 @@ class CatPresenter{
         })
     }
 
-    func setVotes(idImage: String,vote: Int){
-        let data:String = "{\n  \"image_id\": \"\(idImage)\",\n  \"value\": \(vote)\n}"
-        dataService.addVotes(data:data)
+    func setVotes(cat:UICat, vote:Int){
+
+        if vote == 1 {
+            self.votes.append(Vote(nameBreed:cat.nameBreed,like:"1",disLike:"0"))
+        }else{
+            self.votes.append(Vote(nameBreed:cat.nameBreed,like:"0",disLike:"0"))
+        }
+     
+  
     }
 
-    func getVotes(onCompletion:@escaping CallbackBlock<UIVote>){
-        dataService.getVotes(onCompletion: { rs in
-            onCompletion(converterUIVote.convert(rs))
-        })
+    func getVotes() -> [Vote]{
+        return self.votes
     }
+
+
 
     func getCats()-> Array<UICat>{
         // return dataService.getCats()
