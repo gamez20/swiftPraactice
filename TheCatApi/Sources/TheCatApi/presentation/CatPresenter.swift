@@ -3,11 +3,12 @@ import Foundation
 typealias CallbackBlock <T:Any> = (_ value:[T])->Void
 let converterUICat:CatUIConverter = CatUIConverter()
 let converterUIVote:VoteUIConverter = VoteUIConverter()
+
 class CatPresenter{
    
     static let instance:CatPresenter = CatPresenter()
     let dataService:CatDataService = CatDataService.instance
-    var cats = [UICat]()
+    var cats:[UICat] = []
     var initialLetterBreeds = [Character]()
 
     func loadBreeds(){

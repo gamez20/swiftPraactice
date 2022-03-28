@@ -7,7 +7,3 @@ struct Cat: Decodable{
     var reference_image_id: String?
 }
 
-struct Vote: Decodable{
-    var image_id: String
-    var value: Int
-}
