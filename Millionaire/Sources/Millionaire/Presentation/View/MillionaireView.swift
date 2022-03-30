@@ -18,25 +18,28 @@ class MillionaireView{
             case 1:
                 readLine()
                 let questions = millionairePresenter.getquestion()
+                let lettersOpcion: [String] = ["a","b","c","d","e"]
                 var numberQuestion = 1
+
                 for question in questions {
                     cleanConsole()
                     print("\(numberQuestion). \(question.question)")
+                    print(" ")
                     let answers = getAnswers(question.correctAnswer,question.incorrectAnswers)
-                    let letters: [String] = ["a","b","c","d","e"]
-                    var register:[String:String] = ["a":" ", "b":" ", "c":" ", "d":" "]
+                    
+                    var questionsAndAnswers:[String:String] = ["a":" ", "b":" ", "c":" ", "d":" "]
                     var numberLetters = 0
 
                     for answer in answers{
-                        let letter = letters[numberLetters]
-                        register[letter] = answer
-                        print("\(letter). \(answer)")
+                        let letter = lettersOpcion[numberLetters]
+                        questionsAndAnswers[letter] = answer
+                        print("   \(letter). \(answer)")
                         numberLetters += 1
                     }
 
                     let response = String(readLine()!)
 
-                    if validateResponse(question,register,response){
+                    if validateResponse(question,questionsAndAnswers,response){
                         print("Correct")
                     }else{
                         print("Incorrect")
@@ -45,10 +48,7 @@ class MillionaireView{
                     numberQuestion += 1
                     readLine()
                 }
-                // for question in questions {
-                //     print("\(question.type) -> \(question.question)")
-                //     print(question.incorrectAnswers)
-                // } 
+
                 readLine()
                 
             default:
@@ -67,9 +67,12 @@ class MillionaireView{
         return answers
     }
 
-    func validateResponse(_ answer:UIQuestionData,_ register:[String:String],_ response:String ) -> Bool {
+    func validateResponse(_ answer:UIQuestionData,_ registerQuestion:[String:String],_ response:String ) -> Bool {
 
-        if answer.correctAnswer != register[response]{
+        let correctAnswer = answer.correctAnswer 
+        let selectedAnswer = registerQuestion[response]
+
+        if correctAnswer != selectedAnswer {
             return false
         }
         return true

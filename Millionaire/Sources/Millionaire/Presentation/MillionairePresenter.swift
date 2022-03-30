@@ -2,19 +2,13 @@ import Foundation
 
 typealias CallbackBlock <T:Any> = (_ value:[T])->Void
 
-// let convert:QuizUIConverter = QuizUIConverter()
-
-
-
 class MillionairePresenter{
     static let instance:MillionairePresenter = MillionairePresenter()
     let dataService:MillionaireDataService = MillionaireDataService.instance
     var questions : [UIQuestionData] = []
 
     func loadQuestions(){
-
         dataService.getQuestionsAndAnswers(onCompletion:{ quizData in 
-            // onCompletion(quizData)
             self.addquestion(quizData)  
         })
     }
