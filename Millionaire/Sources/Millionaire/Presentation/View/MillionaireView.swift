@@ -27,19 +27,19 @@ class MillionaireView{
                     print(" ")
                     let answers = getAnswers(question.correctAnswer,question.incorrectAnswers)
                     
-                    var questionsAndAnswers:[String:String] = ["a":" ", "b":" ", "c":" ", "d":" "]
+                    var answerOpcions:[String:String] = ["a":" ", "b":" ", "c":" ", "d":" "]
                     var numberLetters = 0
 
                     for answer in answers{
                         let letter = lettersOpcion[numberLetters]
-                        questionsAndAnswers[letter] = answer
+                        answerOpcions[letter] = answer
                         print("   \(letter). \(answer)")
                         numberLetters += 1
                     }
 
                     let response = String(readLine()!)
 
-                    if validateResponse(question,questionsAndAnswers,response){
+                    if validateResponse(question,answerOpcions,response){
                         print("Correct")
                     }else{
                         print("Incorrect")
