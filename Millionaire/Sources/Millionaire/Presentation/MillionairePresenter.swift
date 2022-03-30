@@ -9,27 +9,26 @@ typealias CallbackBlock <T:Any> = (_ value:[T])->Void
 class MillionairePresenter{
     static let instance:MillionairePresenter = MillionairePresenter()
     let dataService:MillionaireDataService = MillionaireDataService.instance
-    var questions : [QuestionData] = []
+    var questions : [UIQuestionData] = []
 
-    func getQuestionsAndAnswers(onCompletion:@escaping CallbackBlock<QuestionData>){
+    func loadQuestions(){
 
         dataService.getQuestionsAndAnswers(onCompletion:{ quizData in 
             // onCompletion(quizData)
             self.addquestion(quizData)  
         })
-
     }
 
 
-    func addquestion(_ questions:[QuestionData]){
+    func addquestion(_ questions:[UIQuestionData]){
         self.questions = questions
     }
 
-    func getnumber()-> Int {
+    func totalQuestions()-> Int {
         return self.questions.count
     }
 
-    func getquestion() -> [QuestionData]{
+    func getquestion() -> [UIQuestionData]{
         return self.questions
     }
 

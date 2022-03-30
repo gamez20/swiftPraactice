@@ -6,9 +6,9 @@ class MillionaireDataService{
     let userDefaults = UserDefaults.standard
 
 
-    func getQuestionsAndAnswers(onCompletion:@escaping CallbackBlock<QuestionData>){
+    func getQuestionsAndAnswers(onCompletion:@escaping CallbackBlock<UIQuestionData>){
 
-        guard let url:URL = URL(string: "https://opentdb.com/api.php?amount=10") else {return}
+        guard let url:URL = URL(string: "https://opentdb.com/api.php?amount=10&type=multiple") else {return}
         var request = URLRequest(url:url)
         request.httpMethod = "GET"
 

@@ -14,7 +14,13 @@ struct QuestionData: Decodable{
     var incorrect_answers: [String]
 }
 
-
+struct UIQuestionData{
+    var type: String
+    var difficulty: String
+    var question: String
+    var correctAnswer: String
+    var incorrectAnswers: [String]
+}
 
 
 struct Question {
