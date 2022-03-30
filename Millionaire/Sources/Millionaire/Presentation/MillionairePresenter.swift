@@ -2,7 +2,7 @@ import Foundation
 
 typealias CallbackBlock <T:Any> = (_ value:[T])->Void
 
-let convert:QuizUIConverter = QuizUIConverter()
+// let convert:QuizUIConverter = QuizUIConverter()
 
 
 
@@ -15,7 +15,7 @@ class MillionairePresenter{
 
         dataService.getQuestionsAndAnswers(onCompletion:{ quizData in 
             // onCompletion(quizData)
-            self.addquestion(converter.convert(quizData))  
+            self.addquestion(quizData)  
         })
 
     }

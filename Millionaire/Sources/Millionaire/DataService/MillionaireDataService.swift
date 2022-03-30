@@ -16,7 +16,7 @@ class MillionaireDataService{
             guard let data = data else { return }
             do{
                 let decodeData = try JSONDecoder().decode(QuizData.self,from: data)
-                /*
+                
                 var questions: [UIQuestionData] = []
                 for result in decodeData.results{
 
@@ -30,10 +30,10 @@ class MillionaireDataService{
                     
                     questions.append(questionData)
                 }
-                */
-                onCompletion(decodeData.results)
+                
+                // onCompletion(decodeData.results)
 
-                // onCompletion(decodeData)
+                onCompletion(questions)
 
             }catch{
                 print("****Faild****")
