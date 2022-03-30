@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Millionaire",
+            "program": "${workspaceFolder:Millionaire}/.build/debug/Millionaire",
+            "args": [],
+            "cwd": "${workspaceFolder:Millionaire}",
+            "preLaunchTask": "swift: Build Debug Millionaire"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release Millionaire",
+            "program": "${workspaceFolder:Millionaire}/.build/release/Millionaire",
+            "args": [],
+            "cwd": "${workspaceFolder:Millionaire}",
+            "preLaunchTask": "swift: Build Release Millionaire"
+        }
+    ]
+}
