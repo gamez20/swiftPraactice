@@ -38,8 +38,8 @@ class MillionaireView{
                     }
 
                     let response = String(readLine()!)
-
-                    if validateResponse(question,answerOpcions,response){
+                    let isAnswerCorrect = validateResponse(question,answerOpcions,response)
+                    if isAnswerCorrect {
                         print("Correct")
                     }else{
                         print("Incorrect")
