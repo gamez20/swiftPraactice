@@ -18,32 +18,19 @@ class MillionaireView{
             case 1:
                 readLine()
                 let questions = millionairePresenter.getquestion()
-                let lettersOpcion: [String] = ["a","b","c","d","e"]
                 var numberQuestion = 1
 
                 for question in questions {
                     cleanConsole()
+                    // Aqui imprime la pregunta
                     print("\(numberQuestion). \(question.question)")
                     print(" ")
-                    let answers = getAnswers(question.correctAnswer,question.incorrectAnswers)
-                    
-                    var answerOpcions:[String:String] = ["a":" ", "b":" ", "c":" ", "d":" "]
-                    var numberLetters = 0
-
-                    for answer in answers{
-                        let letter = lettersOpcion[numberLetters]
-                        answerOpcions[letter] = answer
-                        print("   \(letter). \(answer)")
-                        numberLetters += 1
-                    }
-
-                    let response = String(readLine()!)
-                    let isAnswerCorrect = validateResponse(question,answerOpcions,response)
-                    if isAnswerCorrect {
-                        print("Correct")
-                    }else{
-                        print("Incorrect")
-                    }
+                    //fin imprime pregunta
+                    // Imprime Opciones 
+                    let answerOpcions = showOpcions(question)
+                    // TODO: fin imprime opciones
+                
+                    showAnswer(question,answerOpcions)
 
                     numberQuestion += 1
                     readLine()
@@ -67,7 +54,32 @@ class MillionaireView{
         return answers
     }
 
-    func validateResponse(_ answer:UIQuestionData,_ registerQuestion:[String:String],_ response:String ) -> Bool {
+    func showAnswer(_ question:UIQuestionData,_ answerOpcions:[String:String]){
+        let option = String(readLine()!)
+
+        if isAnswerCorrect(question,answerOpcions,option) {
+            print("Correct Answer")
+        }else{
+            print("Incorrect Answer")
+        }
+    }
+
+    func showOpcions(_ question:UIQuestionData) -> [String:String]{
+        let lettersOpcion: [String] = ["a","b","c","d","e"]
+        let answers = getAnswers(question.correctAnswer,question.incorrectAnswers)
+        var answerOpcions:[String:String] = ["a":" ", "b":" ", "c":" ", "d":" "]
+        var numberLetters = 0
+        for answer in answers{
+            let letter = lettersOpcion[numberLetters]
+            answerOpcions[letter] = answer
+            print("   \(letter). \(answer)")
+            numberLetters += 1
+        }
+
+        return answerOpcions
+    }
+
+    func isAnswerCorrect(_ answer:UIQuestionData,_ registerQuestion:[String:String],_ response:String ) -> Bool {
 
         let correctAnswer = answer.correctAnswer 
         let selectedAnswer = registerQuestion[response]
