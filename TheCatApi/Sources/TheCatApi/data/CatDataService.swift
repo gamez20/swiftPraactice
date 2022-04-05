@@ -6,6 +6,7 @@ class CatDataService{
     
     static let instance:CatDataService = CatDataService()
     let catApiToken = "b31e3cf7-0b06-49c0-bb3b-cc1eaf8561c0"
+    let defaults = UserDefaults.standard
 
     func getBreeds(onCompletion:@escaping CallbackBlock<Cat> ){
         
@@ -31,6 +32,21 @@ class CatDataService{
                 }
         }
         task.resume()
+    }
+
+    func saveBreedsVoting(_ catBreeds:CatBreedsStatus){
+        if let encoded = try?JSONEncoder().encode(catBreeds){
+            defaults.set(encoded,forKey: "saveSession")
+        }
+    }
+
+    func getSavedVoting() -> CatBreedsStatus? {
+        if let saveSession = defaults.object(forKey: "saveSession") as? Data{
+            if let loadedSession = try?JSONDecoder().decode(CatBreedsStatus.self, from: saveSession){
+                return loadedSession
+            }
+        }
+        return nil
     }
 /*
     func addVotes(data:String) {

@@ -3,11 +3,18 @@ import Foundation
 typealias CallbackBlock <T:Any> = (_ value:[T])->Void
 let converterUICat:CatUIConverter = CatUIConverter()
 let converterUIVote:VoteUIConverter = VoteUIConverter()
+//UserDefaul -> 
+
+struct CatBreedsStatus:Codable{
+    var breeds: [Vote] = []
+}
+
 
 class CatPresenter{
    
     static let instance:CatPresenter = CatPresenter()
     let dataService:CatDataService = CatDataService.instance
+    var catBreedsStatus = CatBreedsStatus()
     var cats:[UICat] = []
     var votes:[Vote] = []
 
@@ -18,26 +25,24 @@ class CatPresenter{
                 cats in self.addBreedLibrary(converterUICat.convert(cats))
         })
     }
-
+    
     func setVotes(cat:UICat, vote:Int){
-
         if vote == 1 {
-            self.votes.append(Vote(nameBreed:cat.nameBreed,like:"1",disLike:"0"))
+
+            self.catBreedsStatus.breeds.append(Vote(nameBreed:cat.nameBreed,like:"1",disLike:"0"))
+            dataService.saveBreedsVoting(catBreedsStatus)
+           
         }else{
-            self.votes.append(Vote(nameBreed:cat.nameBreed,like:"0",disLike:"0"))
+            self.catBreedsStatus.breeds.append(Vote(nameBreed:cat.nameBreed,like:"0",disLike:"0"))
+            dataService.saveBreedsVoting(catBreedsStatus)
         }
-     
-  
     }
 
-    func getVotes() -> [Vote]{
-        return self.votes
+    func getVotes() -> CatBreedsStatus? {
+        return dataService.getSavedVoting()
     }
-
-
 
     func getCats()-> Array<UICat>{
-        // return dataService.getCats()
         return self.cats
     }
 

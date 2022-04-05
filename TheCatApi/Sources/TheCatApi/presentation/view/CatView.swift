@@ -65,15 +65,9 @@ class CatView{
             print("There are no breeds with this initial")
             goBackSystemMainMenuView()
         }else{
-            var numberBreeds = 1
-            print("selected opcion")
-            for cat in cats {
-                print("\(numberBreeds). \(cat.nameBreed)")
-                numberBreeds += 1
-            }
-            print("Number the Breed")
-            let numberCat = Int(readLine()!)!
-            descriptionOfBreeds(cats:cats,numberCat:numberCat)
+
+            showBreedsbySlectedLetter(cats)
+            showDescriptionOfBreed(cats:cats)
             
         }
         goBackSystemMainMenuView()
@@ -119,34 +113,36 @@ class CatView{
     }
 
     func votesRecord (){
-        
+        cleanConsole()
         let cats = catPresenter.getCats()
-        var votes = catPresenter.getVotes()
-        var votesLike = 0 , votesDislike = 0
-        for cat in cats {
-            for vote in votes {
-                if(vote.nameBreed == cat.nameBreed ){
-                    if vote.like == "1" {
-                        votesLike += 1
+
+        if let votes = catPresenter.getVotes(){
+            var votesLike = 0 , votesDislike = 0
+                for cat in cats {
+                    for vote in votes.breeds{
+                        if(vote.nameBreed == cat.nameBreed ){
+                            if vote.like == "1" {
+                                votesLike += 1
+                            }
+                            else if vote.disLike == "0" {
+                                votesDislike += 1
+                            }
+                        }  
                     }
-                    else if vote.disLike == "0" {
-                        votesDislike += 1
+                if(votesDislike != 0 || votesLike != 0){
+                    print("Breed: \(cat.nameBreed)\nLike: \(votesLike)\nDislike:\(votesDislike)")
+                    votesLike = 0 
+                    votesDislike = 0
+                    print("***********************************")
                     }
-                }  
-            }
-           if(votesDislike != 0 || votesLike != 0){
-            print("Breed: \(cat.nameBreed)\nLike: \(votesLike)\nDislike:\(votesDislike)")
-            votesLike = 0 
-            votesDislike = 0
-            print("***********************************")
-            }
-        }     
-      
-        
+                }     
+        }
         goBackSystemVotesView()
     }
 
-    func descriptionOfBreeds(cats:[UICat], numberCat:Int){
+    func showDescriptionOfBreed(cats:[UICat]){
+         print("Number the Breed")
+        let numberCat = Int(readLine()!)!
         let cat = cats[numberCat-1]
         let totalCatsFound = cats.count
         if numberCat >= 1 && numberCat < totalCatsFound{
@@ -172,6 +168,15 @@ class CatView{
              cleanConsole()
              votesView()
          }
+    }
+
+    func showBreedsbySlectedLetter(_ cats:[UICat]){
+        var numberBreeds = 1
+        print("selected opcion")
+        for cat in cats {
+            print("\(numberBreeds). \(cat.nameBreed)")
+            numberBreeds += 1
+        }
     }
 
     func goBackSystemMainMenuView(){

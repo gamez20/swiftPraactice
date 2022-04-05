@@ -1,6 +1,6 @@
 import Foundation
 
-struct Vote{
+struct Vote:Codable{
     var nameBreed: String
     var like: String
     var disLike: String
