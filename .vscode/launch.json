@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug TheCatApi (TheCatApi)",
+            "program": "${workspaceFolder:swiftPraactice}/TheCatApi/.build/debug/TheCatApi",
+            "args": [],
+            "cwd": "${workspaceFolder:swiftPraactice}/TheCatApi",
+            "preLaunchTask": "swift: Build Debug TheCatApi (TheCatApi)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release TheCatApi (TheCatApi)",
+            "program": "${workspaceFolder:swiftPraactice}/TheCatApi/.build/release/TheCatApi",
+            "args": [],
+            "cwd": "${workspaceFolder:swiftPraactice}/TheCatApi",
+            "preLaunchTask": "swift: Build Release TheCatApi (TheCatApi)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Millionaire (Millionaire)",
+            "program": "${workspaceFolder:swiftPraactice}/Millionaire/.build/debug/Millionaire",
+            "args": [],
+            "cwd": "${workspaceFolder:swiftPraactice}/Millionaire",
+            "preLaunchTask": "swift: Build Debug Millionaire (Millionaire)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release Millionaire (Millionaire)",
+            "program": "${workspaceFolder:swiftPraactice}/Millionaire/.build/release/Millionaire",
+            "args": [],
+            "cwd": "${workspaceFolder:swiftPraactice}/Millionaire",
+            "preLaunchTask": "swift: Build Release Millionaire (Millionaire)"
+        }
+    ]
+}

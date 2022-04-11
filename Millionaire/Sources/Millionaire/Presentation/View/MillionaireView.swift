@@ -22,16 +22,11 @@ class MillionaireView{
 
                 for question in questions {
                     cleanConsole()
-                    // Aqui imprime la pregunta
                     print("\(numberQuestion). \(question.question)")
                     print(" ")
-                    //fin imprime pregunta
-                    // Imprime Opciones 
-                    let answerOpcions = showOpcions(question)
-                    // TODO: fin imprime opciones
-                
-                    showAnswer(question,answerOpcions)
 
+                    let answerOptions = showOptions(question)
+                    showAnswer(question,answerOptions)
                     numberQuestion += 1
                     readLine()
                 }
@@ -64,7 +59,7 @@ class MillionaireView{
         }
     }
 
-    func showOpcions(_ question:UIQuestionData) -> [String:String]{
+    func showOptions(_ question:UIQuestionData) -> [String:String]{
         let lettersOpcion: [String] = ["a","b","c","d","e"]
         let answers = getAnswers(question.correctAnswer,question.incorrectAnswers)
         var answerOpcions:[String:String] = ["a":" ", "b":" ", "c":" ", "d":" "]
